@@ -1,4 +1,4 @@
-<!-- Result of Quizz -->
+﻿<!-- Result of Quizz -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="java.sql.*, java.util.*" %>
@@ -209,9 +209,40 @@
 
         <!-- DataBase Information To Use It -->
         <%
-        String url = "jdbc:mysql://localhost:3306/quizz";
-        String dbuser = "root";
-        String dbpass = "9689";
+        // Database Information
+	String dbHost = System.getenv("MYSQLHOST");
+	String dbPort = System.getenv("MYSQLPORT");
+	String dbName = System.getenv("MYSQLDATABASE");
+	String dbuser = System.getenv("MYSQLUSER");
+	String dbpass = System.getenv("MYSQLPASSWORD");
+
+	// Local MySQL defaults for Docker on Windows
+	if (dbHost == null || dbHost.isBlank()) {
+    	dbHost = "host.docker.internal";
+	}
+
+	if (dbPort == null || dbPort.isBlank()) {
+    	dbPort = "3306";
+	}
+
+	if (dbName == null || dbName.isBlank()) {
+    	dbName = "quizz";
+	}
+
+	if (dbuser == null || dbuser.isBlank()) {
+   	 dbuser = "root";
+	}
+
+	if (dbpass == null || dbpass.isBlank()) {
+    	dbpass = System.getenv("LOCAL_MYSQL_PASSWORD");
+	}
+
+	if (dbpass == null) {
+    	throw new Exception("Database password is not configured.");
+	}
+
+	String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+
         int score = 0;
         int totalQuestions = 0;
         int correctCount = 0;
@@ -444,3 +475,4 @@
 
     </body>
 </html>
+

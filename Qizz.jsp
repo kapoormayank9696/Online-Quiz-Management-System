@@ -1,4 +1,4 @@
-<!-- Quizz Question Page -->
+﻿<!-- Quizz Question Page -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="java.sql.*" %>
@@ -137,9 +137,29 @@
             </div>
 
             <%
-            final String url="jdbc:mysql://127.0.0.1:3306/quizz";
-            final String dbusername="root";
-            final String password="9689";
+            String dbHost = System.getenv("MYSQLHOST");
+            String dbPort = System.getenv("MYSQLPORT");
+            String dbName = System.getenv("MYSQLDATABASE");
+            String dbusername = System.getenv("MYSQLUSER");
+            String password = System.getenv("MYSQLPASSWORD");
+
+            if (dbHost == null || dbHost.isBlank()) {
+                dbHost = "host.docker.internal";
+            }
+            if (dbPort == null || dbPort.isBlank()) {
+                dbPort = "3306";
+            }
+            if (dbName == null || dbName.isBlank()) {
+                dbName = "quizz";
+            }
+
+            String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+            if (dbusername == null || dbusername.isBlank()) {
+                dbusername = "root";
+            }
+            if (password == null) {
+                password = System.getenv("LOCAL_MYSQL_PASSWORD");
+            }
             
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -211,4 +231,5 @@
         </div>
     </body>
 </html>
+
 
