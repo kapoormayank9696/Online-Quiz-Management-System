@@ -144,21 +144,23 @@
             String password = System.getenv("MYSQLPASSWORD");
 
             if (dbHost == null || dbHost.isBlank()) {
-                dbHost = "host.docker.internal";
+                dbHost = "gateway01.ap-southeast-1.prod.aws.tidbcloud.com";
             }
             if (dbPort == null || dbPort.isBlank()) {
-                dbPort = "3306";
+                dbPort = "4000";
             }
             if (dbName == null || dbName.isBlank()) {
                 dbName = "quizz";
             }
+            String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
+           + "?sslMode=VERIFY_IDENTITY";
 
-            String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
             if (dbusername == null || dbusername.isBlank()) {
-                dbusername = "root";
+                dbusername = "49syBFwdW3xXqRg.root";
             }
-            if (password == null) {
-                password = System.getenv("LOCAL_MYSQL_PASSWORD");
+            if (password == null || password.isBlank()) {
+                    out.println("MYSQLPASSWORD environment variable is not configured.");
+                    return;
             }
             
             try{
