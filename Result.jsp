@@ -343,10 +343,6 @@
 
         String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
                    + "?sslMode=VERIFY_IDENTITY";
-<<<<<<< HEAD
-
-=======
->>>>>>> 63d6f3dd87bc4a7d3ed960fab1dd6bd1ea51b860
 
         int score = 0;
         int totalQuestions = 0;
