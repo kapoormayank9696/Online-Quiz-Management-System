@@ -209,39 +209,35 @@
 
         <!-- DataBase Information To Use It -->
         <%
-        // Database Information
-	String dbHost = System.getenv("MYSQLHOST");
-	String dbPort = System.getenv("MYSQLPORT");
-	String dbName = System.getenv("MYSQLDATABASE");
-	String dbuser = System.getenv("MYSQLUSER");
-	String dbpass = System.getenv("MYSQLPASSWORD");
+        String dbHost = System.getenv("MYSQLHOST");
+        String dbPort = System.getenv("MYSQLPORT");
+        String dbName = System.getenv("MYSQLDATABASE");
+        String dbuser = System.getenv("MYSQLUSER");
+        String dbpass = System.getenv("MYSQLPASSWORD");
 
-	// Local MySQL defaults for Docker on Windows
-	if (dbHost == null || dbHost.isBlank()) {
-    	dbHost = "host.docker.internal";
-	}
+        if (dbHost == null || dbHost.isBlank()) {
+            dbHost = "gateway01.ap-southeast-1.prod.aws.tidbcloud.com";
+        }
 
-	if (dbPort == null || dbPort.isBlank()) {
-    	dbPort = "3306";
-	}
+        if (dbPort == null || dbPort.isBlank()) {
+            dbPort = "4000";
+        }
 
-	if (dbName == null || dbName.isBlank()) {
-    	dbName = "quizz";
-	}
+        if (dbName == null || dbName.isBlank()) {
+            dbName = "quizz";
+        }
 
-	if (dbuser == null || dbuser.isBlank()) {
-   	 dbuser = "root";
-	}
+        if (dbuser == null || dbuser.isBlank()) {
+            dbuser = "49syBFwdW3xXqRg.root";
+        }
 
-	if (dbpass == null || dbpass.isBlank()) {
-    	dbpass = System.getenv("LOCAL_MYSQL_PASSWORD");
-	}
+        if (dbpass == null || dbpass.isBlank()) {
+            out.println("<div class='block'><h2>Database configuration error: MYSQLPASSWORD is missing.</h2></div>");
+            return;
+        }
 
-	if (dbpass == null) {
-    	throw new Exception("Database password is not configured.");
-	}
-
-	String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+        String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
+                   + "?sslMode=VERIFY_IDENTITY";
 
         int score = 0;
         int totalQuestions = 0;
