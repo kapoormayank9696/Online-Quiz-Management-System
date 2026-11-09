@@ -209,7 +209,7 @@ It demonstrates the practical implementation of Java, JSP, JDBC, MySQL, and Dock
 
 - Project: Online Quiz Management System
 - Technologies: Java, JSP, JDBC, MySQL, Apache Tomcat, Docker
-- GitHub: (https://github.com/kapoormayank9696/Online-Quiz-Management-System)
+- GitHub: https://github.com/kapoormayank9696/Online-Quiz-Management-System
 - Live Demo: https://online-quiz-management-system-1-70cn.onrender.com/LoginPage.jsp
 
 ## 📄 License
