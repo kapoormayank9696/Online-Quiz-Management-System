@@ -1,134 +1,211 @@
 # Online Quiz Management System
 
-A web-based quiz application developed using **JavaServer Pages (JSP), Apache Tomcat, and MySQL**. The application allows students to enter their details, attempt multiple-choice questions, and view their quiz results.
+A web-based **Online Quiz Management System** developed using JavaServer Pages (JSP), Java, Apache Tomcat, and MySQL. This application allows students to log in using their personal details, attempt multiple-choice questions, and view their quiz results with automatically calculated scores and percentages.
 
-## Features
+The system provides a simple and user-friendly platform for conducting online quizzes and managing student performance records.
 
-- Student login using name, email, and enrollment number
-- Multiple-choice quiz questions
-- Questions and answer options stored in a MySQL database
-- Automatic score calculation
-- Quiz result and percentage display
-- Storage of quiz results in the database
-- User-friendly interface with custom styling
-- Docker-based deployment support
+## 🚀 Live Demo
 
-## Technologies Used
+**Live Application:**  
+https://online-quiz-management-system-1-70cn.onrender.com/LoginPage.jsp
 
-- **Frontend:** HTML, CSS, JSP
-- **Backend:** Java, JSP, JDBC
-- **Web Server:** Apache Tomcat 9
-- **Database:** MySQL
-- **Database Driver:** MySQL Connector/J
-- **Containerization:** Docker
+## ✨ Features
 
-## Project Structure
+- **Student Login:** Students can enter their name, email, and enrollment number.
+- **Multiple-Choice Questions:** Interactive quiz containing MCQ-based questions.
+- **Database Integration:** Questions and answer options are retrieved from MySQL.
+- **Automatic Evaluation:** Automatically calculates scores based on submitted answers.
+- **Result Generation:** Displays obtained marks and percentage.
+- **Result Storage:** Saves student details and quiz results in the database.
+- **User-Friendly Interface:** Simple interface with custom CSS styling.
+- **Docker Support:** Supports containerized deployment using Docker.
+- **Persistent Records:** Stores quiz results for future reference.
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Java | Backend programming |
+| JSP | Dynamic web pages |
+| HTML5 | Frontend structure |
+| CSS3 | UI styling |
+| JDBC | Database connectivity |
+| MySQL | Database management |
+| Apache Tomcat 9 | Web server |
+| MySQL Connector/J | MySQL JDBC driver |
+| Docker | Containerization |
+| Git & GitHub | Version control and source code management |
+
+## 📂 Project Structure
 
 ```text
 Online-Quizz-Management-System/
+│
 ├── LoginPage.jsp
 ├── Qizz.jsp
 ├── Result.jsp
 ├── MysqlCommand.txt
 ├── Dockerfile
 ├── README.md
+│
 ├── Project Images/
+│
 └── WEB-INF/
     └── lib/
         └── mysql-connector-j.jar
 ```
 
-## Prerequisites
+## ⚙️ Prerequisites
 
-To run the project locally, install:
+Make sure the following software is installed:
 
 - Java Development Kit (JDK)
 - Apache Tomcat 9
-- MySQL Server
+- MySQL Server 8.0 or later
 - MySQL Connector/J
-- Docker Desktop (for Docker deployment)
+- Docker Desktop (optional)
+- MySQL Workbench (recommended)
 
-## Database Setup
+## 🗄️ Database Configuration
 
-1. Start your MySQL server.
-2. Open MySQL Workbench, phpMyAdmin, or the MySQL command-line client.
-3. Execute the SQL commands from `MysqlCommand.txt`.
-4. Create the `quizz` database and its tables.
-5. Insert the sample questions and answer options.
+The project uses MySQL as its database.
 
-The application uses these tables:
+**Step 1: Start MySQL Server**
 
-- `questions` — stores quiz questions and categories.
-- `options` — stores answer options and correct-answer indicators.
-- `quiz_results` — stores student details and quiz scores.
+Start your MySQL service and open MySQL Workbench or the MySQL command-line client.
 
-**Note:** Run the SQL setup only on a fresh database, or check existing tables and data first to avoid duplicate records.
+**Step 2: Create the Database**
 
-## Run Locally
+Execute the SQL commands available in `MysqlCommand.txt`.
 
-1. Configure Apache Tomcat and MySQL.
-2. Place the application files in the appropriate Tomcat web application directory.
-3. Ensure MySQL Connector/J is available to the application.
-4. Configure the database connection URL, username, and password in the JSP files.
-5. Start Tomcat and MySQL.
-6. Open the application in your browser:
+**Step 3: Database Tables**
 
-```text
-http://localhost:8080/
+The application uses the following tables:
+
+| Table Name | Description |
+|---|---|
+| `questions` | Stores quiz questions and related information. |
+| `options` | Stores multiple-choice options and correct-answer indicators. |
+| `quiz_results` | Stores student details, scores, and quiz results. |
+
+**Step 4: Configure Database Connectivity**
+
+Update the database connection details in the JSP files according to your MySQL configuration.
+
+Example:
+
+```java
+String url = "jdbc:mysql://localhost:3306/quizz";
+String username = "root";
+String password = "your_password";
 ```
 
-Use the application's configured context path if it is deployed under a different directory.
+Make sure the MySQL Connector/J JAR file is available to the application.
 
-## Docker Deployment
+**Note:** Never upload actual database passwords or sensitive credentials to GitHub.
 
-Docker can package the application and its Tomcat runtime into a container.
+## ▶️ Run the Project Locally
 
-1. Install and start Docker Desktop.
-2. Place the `Dockerfile`, JSP pages, `WEB-INF` folder, and required assets in the deployment directory.
-3. Build the Docker image:
+Follow these steps to run the application on your local machine.
 
-```powershell
+1. Install JDK, Apache Tomcat 9, and MySQL.
+2. Start the MySQL server.
+3. Execute `MysqlCommand.txt` to create the database and required tables.
+4. Configure database credentials in the JSP files.
+5. Copy the project files into the Tomcat webapps directory.
+6. Ensure the MySQL Connector/J driver is available.
+7. Start the Apache Tomcat server.
+8. Open your browser and visit:
+
+```text
+http://localhost:8080/Online-Quizz-Management-System/LoginPage.jsp
+```
+
+If the project is deployed as the Tomcat ROOT application, use:
+
+```text
+http://localhost:8080/LoginPage.jsp
+```
+
+## 🐳 Docker Deployment
+
+The project supports Docker-based deployment using Apache Tomcat.
+
+**Step 1: Install Docker Desktop**
+
+Make sure Docker Desktop is installed and running.
+
+**Step 2: Build the Docker Image**
+
+Open PowerShell or Command Prompt in the directory containing the Dockerfile.
+
+```bash
 docker build -t online-quiz .
 ```
 
-4. Run the container:
+**Step 3: Run the Docker Container**
 
-```powershell
-docker run --name online-quiz -p 8080:8080 online-quiz
+```bash
+docker run -d --name online-quiz -p 8081:8080 online-quiz
 ```
 
-5. Open the application at:
+**Step 4: Access the Application**
 
 ```text
-http://localhost:8080/
+http://localhost:8081/LoginPage.jsp
 ```
 
-**Important:** The MySQL database must be running and reachable separately. Configure the database host, port, database name, username, and password appropriately for the deployment environment. Do not commit database passwords or other secrets to GitHub.
+**Important Docker Configuration:**
 
-Docker commands should be run only after the Dockerfile and database configuration are ready.
+- The MySQL database must be accessible separately from the Tomcat container.
+- When connecting to MySQL installed on the Windows host, `host.docker.internal` can be used as the database hostname.
+- Configure the correct database name, port, username, and password.
+- Ensure the database connection URL matches the deployment environment.
 
-## Future Enhancements
+## 📸 Application Screenshots
 
-- Secure authentication and password management
-- Admin panel for managing questions and categories
-- Randomized questions and answer options
-- Quiz timer and automatic submission
-- Improved validation and error handling
-- Responsive design for mobile devices
-- Detailed performance reports and leaderboards
-- Secure environment-based database configuration
+Add your project screenshots inside the `Project Images` folder and display them here.
 
-## Purpose
+Example:
 
-The purpose of this project is to provide a simple online platform for conducting multiple-choice quizzes, evaluating student answers automatically, and storing quiz results in a database.
+```markdown
+### Login Page
+![Login Page](Project%20Images/LoginPage.png)
 
-## Author
+### Quiz Page
+![Quiz Page](Project%20Images/QuizPage.png)
 
-Mayank Kapoor
+### Result Page
+![Result Page](Project%20Images/ResultPage.png)
+```
 
-**Project:** Online Quiz Management System
-**Live Host:** https://online-quiz-management-system-1-70cn.onrender.com/LoginPage.jsp
+## 🔮 Future Enhancements
 
-## License
+- Admin dashboard for managing quiz questions.
+- Secure student authentication and password management.
+- Randomized questions and answer options.
+- Countdown timer with automatic quiz submission.
+- Multiple quiz categories and difficulty levels.
+- Leaderboard and student performance analytics.
+- Improved mobile responsiveness.
+- Environment-based database configuration.
+- Enhanced security and input validation.
 
-This project is intended for educational and learning purposes. Add a suitable open-source license if you plan to distribute it publicly.
+## 🎯 Project Purpose
+
+The main purpose of this project is to simplify the process of conducting online examinations and evaluating student performance.
+
+It demonstrates the practical implementation of Java, JSP, JDBC, MySQL, and Docker in developing a database-driven web application.
+
+## 👨‍💻 Author
+
+**Mayank Kapoor**
+
+- Project: Online Quiz Management System
+- Technologies: Java, JSP, JDBC, MySQL, Apache Tomcat, Docker
+- GitHub: (https://github.com/kapoormayank9696/Online-Quiz-Management-System)
+- Live Demo: https://online-quiz-management-system-1-70cn.onrender.com/LoginPage.jsp
+
+## 📄 License
+
+This project is developed for educational and learning purposes. You may add an appropriate open-source license if you intend to distribute or reuse the project publicly.
